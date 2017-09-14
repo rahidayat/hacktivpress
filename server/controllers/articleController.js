@@ -24,7 +24,14 @@ let getArticles = (req,res) => {
   .catch(err => res.send(err))
 }
 
+let getSingleArticle = (req,res) => {
+  Article.findOne({_id : req.params.id})
+  .then(article => res.send(article))
+  .catch(err => res.send(err))
+}
+
 module.exports = {
   createArticle,
-  getArticles
+  getArticles,
+  getSingleArticle
 }
