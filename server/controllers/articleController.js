@@ -25,13 +25,33 @@ let getArticles = (req,res) => {
 }
 
 let getSingleArticle = (req,res) => {
-  Article.findOne({_id : req.params.id})
+  Article.findOne({_id : req.params.id}).populate('author')
   .then(article => res.send(article))
   .catch(err => res.send(err))
 }
 
+let updateArticle = (req,res) => {
+  if(req.headers.token == null) {
+    res.send('silahkan log in untuk mengupdate artikel')
+  } else {
+    let decoded = jwt.verify(req.headers.token, process.env.SECRET_KEY)
+    Article.findOne({_id : req.params.id})
+    .then(article => {
+      if(article.author == decoded.id) {
+        Article.update({_id : req.params.id}, req.body)
+        .then(() => res.send('update artikel berhasil'))
+      } else {
+        res.send('user tidak punya otoritas')
+      }
+    })
+    .catch(err => res.send(err))
+  }
+}
+
+
 module.exports = {
   createArticle,
   getArticles,
-  getSingleArticle
+  getSingleArticle,
+  updateArticle
 }

@@ -26,7 +26,7 @@ Route | HTTP | Description
 api/signup | POST | Sign up with new user info
 api/signin | POST | Sign in while get an access token based on credentials
 api/articles | GET | Get All the articles
-api/articles/:id | GET | Get a single article info
-api/articles | POST | Create an article (auth user only)
-api/articles/:id | DELETE | Delete an article (auth user only)
-api/articles/:id | PUT | Update an article (auth user only) 
+api/article/:id | GET | Get a single article info
+api/article | POST | Create an article (auth user only)
+api/article/:id | DELETE | Delete an article (auth user only)
+api/article/:id | PUT | Update an article (auth user only)
