@@ -85,11 +85,25 @@ let getArticleByCategory = (req,res) => {
   .catch(err => res.send(err))
 }
 
+let getArticleByAuthor = (req,res) => {
+  Article.find({author : req.params.author_id}).populate('author')
+  .then(articles => {
+    if(articles.length == 0) {
+      res.send('artikel tidak ditemukan')
+    } else {
+      // console.log('masuk');
+      res.send(articles)
+    }
+  })
+  .catch(err => res.send(err))
+}
+
 module.exports = {
   createArticle,
   getArticles,
   getSingleArticle,
   updateArticle,
   deleteArticle,
-  getArticleByCategory
+  getArticleByCategory,
+  getArticleByAuthor
 }

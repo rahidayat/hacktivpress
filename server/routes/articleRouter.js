@@ -8,9 +8,7 @@ router.get('/article/:id', articleController.getSingleArticle);
 router.put('/article/:id', articleController.updateArticle);
 router.delete('/article/:id', articleController.deleteArticle);
 router.get('/articles/:cat', articleController.getArticleByCategory);
-
-
-
+router.get('/articles/author/:author_id', articleController.getArticleByAuthor);
 
 
 module.exports = router;
