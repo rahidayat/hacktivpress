@@ -72,10 +72,24 @@ let deleteArticle = (req,res) => {
   }
 }
 
+let getArticleByCategory = (req,res) => {
+  Article.find({category : req.params.cat}).populate('author')
+  .then(articles => {
+    if(articles.length == 0) {
+      res.send('kategori tidak ditemukan')
+    } else {
+      // console.log('masuk');
+      res.send(articles)
+    }
+  })
+  .catch(err => res.send(err))
+}
+
 module.exports = {
   createArticle,
   getArticles,
   getSingleArticle,
   updateArticle,
-  deleteArticle
+  deleteArticle,
+  getArticleByCategory
 }
