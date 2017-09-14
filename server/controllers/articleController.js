@@ -7,7 +7,7 @@ let createArticle = (req,res) => {
     res.send('silahkan log in untuk membuat artikel')
   } else {
     let decoded = jwt.verify(req.headers.token, process.env.SECRET_KEY)
-    Artcle.create({
+    Article.create({
       title : req.body.title,
       content : req.body.content,
       category : req.body.category,
