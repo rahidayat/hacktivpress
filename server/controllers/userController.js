@@ -14,7 +14,7 @@ let signup = (req, res) => {
         password: req.body.password
       })
       .then(() => {
-        res.send(`Signup Success!`)
+        res.send(`pendaftaran berhasil!`)
       })
       .catch(err => {
         return res.status(400).send({message: err.message})
@@ -37,12 +37,12 @@ let signin = (req, res) => {
       console.log('ini user data', user);
       bcrypt.compare(password, user.password)
       .then(bcryptResult => {
-        console.log('ini hasil compare',bcryptResult);
+        // console.log('ini hasil compare',bcryptResult);
         if(bcryptResult){
           const token = jwt.sign({id: user._id, username: user.username}, process.env.SECRET_KEY);
           res.json({token: token})
         } else {
-          res.send('Wrong Password')
+          res.send('password anda salah')
         }
       })
     })
@@ -54,9 +54,8 @@ let signin = (req, res) => {
 
 let getAllUsers = (req,res) => {
   User.find({})
-  .then(data => {
-    res.send(data)
-  })
+  .then(data => res.send(data))
+  .catch(err => res.send(err))
 }
 
 module.exports = {
