@@ -27,6 +27,8 @@ api/signup | POST | Sign up with new user info
 api/signin | POST | Sign in while get an access token based on credentials
 api/articles | GET | Get All the articles
 api/article/:id | GET | Get a single article info
+api/articles/:cat | GET | Get articles based on category
+api/articles/author/:id | GET | Get articles based on author
 api/article | POST | Create an article (auth user only)
 api/article/:id | DELETE | Delete an article (auth user only)
 api/article/:id | PUT | Update an article (auth user only)

@@ -1,13 +1,14 @@
 const express = require('express');
 const app = express();
 const bodyParser = require('body-parser');
+const cors = require('cors');
 
 var mongoose = require('mongoose');
 mongoose.connect('mongodb://localhost/hacktivepress', (err) => {
   err ? console.log('Can\'t connect to database') : console.log('Database connected')
 });
 
-
+app.use(cors())
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
 
