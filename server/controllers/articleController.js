@@ -18,6 +18,13 @@ let createArticle = (req,res) => {
   }
 }
 
+let getArticles = (req,res) => {
+  Article.find({}).populate('author')
+  .then(articles => res.send(articles))
+  .catch(err => res.send(err))
+}
+
 module.exports = {
-  createArticle
+  createArticle,
+  getArticles
 }
