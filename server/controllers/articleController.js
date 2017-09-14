@@ -26,7 +26,13 @@ let getArticles = (req,res) => {
 
 let getSingleArticle = (req,res) => {
   Article.findOne({_id : req.params.id}).populate('author')
-  .then(article => res.send(article))
+  .then(article => {
+    if(article == null) {
+      res.send('artikel tidak ditemukan atau sudah dihapus')
+    } else {
+      res.send(article)
+    }
+  })
   .catch(err => res.send(err))
 }
 
@@ -48,10 +54,28 @@ let updateArticle = (req,res) => {
   }
 }
 
+let deleteArticle = (req,res) => {
+  if(req.headers.token == null) {
+    res.send('silahkan log in untuk menghapus artikel')
+  } else {
+    let decoded = jwt.verify(req.headers.token, process.env.SECRET_KEY)
+    Article.findOne({_id : req.params.id})
+    .then(article => {
+      if(article.author == decoded.id) {
+        Article.remove({_id : req.params.id})
+        .then(() => res.send('delete artikel berhasil'))
+      } else {
+        res.send('user tidak punya otoritas')
+      }
+    })
+    .catch(err => res.send(err))
+  }
+}
 
 module.exports = {
   createArticle,
   getArticles,
   getSingleArticle,
-  updateArticle
+  updateArticle,
+  deleteArticle
 }
