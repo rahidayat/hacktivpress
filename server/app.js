@@ -11,9 +11,11 @@ mongoose.connect('mongodb://localhost/hacktivepress', (err) => {
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
 
-var signup = require ('./routes/userRouter')
+var user = require ('./routes/userRouter');
+var article = require ('./routes/articleRouter');
 
-app.use('/api', signup)
+app.use('/api', user);
+app.use('/api', article)
 
 app.listen(process.env.PORT || 3000, function(){
   console.log('I am listening port 3000');
